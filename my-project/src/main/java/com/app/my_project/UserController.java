@@ -5,16 +5,19 @@ import org.springframework.web.bind.annotation.*;
 
 import com.app.models.TokenRequest;
 import com.app.models.UserModel;
+import com.auth0.*;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.*;
 import com.auth0.jwt.exceptions.*;
-import io.github.cdimascio.dotenv.*; //ไว้สำหรับการอ่านไฟล์ .env
+import io.github.cdimascio.dotenv.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @RequestMapping("/jwt")
 public class UserController {
-    private static final long EXPIRATION_TIME = 60L * 60 * 1000 * 24; // 1 day
+    private static final long EXPIRATION_TIME = 60 * 60 * 1000 * 24; // 1 day
 
     public String getSecret() {
         Dotenv dotenv = Dotenv.configure()
@@ -42,7 +45,6 @@ public class UserController {
                 .sign(getAlgorithm());
     }
 
-    // การทำ authorization โดยการตรวจสอบ token ว่าถูกต้องหรือไม่
     @PostMapping("/check")
     public String checkToken(@RequestBody TokenRequest tokenRequest) {
         try {
