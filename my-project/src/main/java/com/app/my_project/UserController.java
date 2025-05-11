@@ -5,10 +5,10 @@ import org.springframework.web.bind.annotation.*;
 
 import com.app.models.TokenRequest;
 import com.app.models.UserModel;
-import com.auth0.*;
+
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
-import com.auth0.jwt.algorithms.*;
+import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.*;
 import io.github.cdimascio.dotenv.*;
 import org.springframework.web.bind.annotation.GetMapping;
