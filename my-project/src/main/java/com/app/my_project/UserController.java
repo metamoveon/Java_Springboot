@@ -8,7 +8,7 @@ import com.app.models.UserModel;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
-import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.algorithms.*;
 import com.auth0.jwt.exceptions.*;
 import io.github.cdimascio.dotenv.*;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,7 +21,7 @@ public class UserController {
 
     public String getSecret() {
         Dotenv dotenv = Dotenv.configure()
-                .directory(System.getProperty("user.dir") + "/my-project")
+                .directory(System.getProperty("user.dir"))
                 .load();
         return dotenv.get("JWT_SECRET");
     }
