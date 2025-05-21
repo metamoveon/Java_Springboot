@@ -5,7 +5,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.GenerationType;
+import jakarta.persistence.GenerationType;;
 
 @Entity
 public class FormularEntity {
@@ -13,7 +13,6 @@ public class FormularEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
     private int qty;
     private String unit;
 
@@ -31,14 +30,6 @@ public class FormularEntity {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setNmae(String name) {
-        this.name = name;
     }
 
     public int getQty() {

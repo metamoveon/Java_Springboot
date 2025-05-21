@@ -15,7 +15,7 @@ import com.app.my_project.entity.FormularEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PathVariable;;
 
 @RestController
 @RequestMapping("/api/formulars")
@@ -26,9 +26,9 @@ public class FormularApiController {
         this.formularRepository = formularRepository;
     }
 
-    @GetMapping
-    public List<FormularEntity> getAllFormulars() {
-        return formularRepository.findAll();
+    @GetMapping("/{productId}")
+    public List<FormularEntity> getAllFormulars(@PathVariable Long productId) {
+        return formularRepository.findAllByProductionIdOrderByIdDesc(productId);
     }
 
     @PostMapping
@@ -41,7 +41,6 @@ public class FormularApiController {
         FormularEntity formular = formularRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Formular not found"));
 
-        formular.setNmae(formularEntity.getName());
         formular.setQty(formularEntity.getQty());
         formular.setUnit(formularEntity.getUnit());
         formular.setMaterial(formularEntity.getMaterial());
