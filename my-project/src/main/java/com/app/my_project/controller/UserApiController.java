@@ -21,7 +21,6 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 
 import io.github.cdimascio.dotenv.Dotenv;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @RequestMapping("/api/users")
@@ -82,7 +81,9 @@ public class UserApiController {
     }
 
     private String getSecret() {
-        Dotenv dotenv = Dotenv.load();
+        Dotenv dotenv = Dotenv.configure()
+                .directory(System.getProperty("user.dir") + "/my-project")
+                .load();
         return dotenv.get("JWT_SECRET");
     }
 
@@ -96,23 +97,15 @@ public class UserApiController {
             String u = user.getUsername();
             String p = user.getPassword();
 
-            // ค้นหาผู้ใช้จากฐานข้อมูล
             UserEntity userForCreateToken = userRepository.findByUsernameAndPassword(u, p);
 
-            // ตรวจสอบว่าผู้ใช้ที่ค้นหามีอยู่หรือไม่
-            if (userForCreateToken == null) {
-                throw new IllegalArgumentException("Invalid username or password คุณใส่ข้อมูลไม่ถูกต้อง");
-            }
-
-            // สร้าง JWT token
             return JWT.create()
                     .withSubject(String.valueOf(userForCreateToken.getId()))
                     .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                     .withIssuedAt(new Date())
                     .sign(getAlgorithm());
         } catch (IllegalArgumentException e) {
-            // ถ้ามีข้อผิดพลาดในการสร้าง token หรือข้อมูลไม่ถูกต้อง
-            throw new IllegalArgumentException("Error creating token or " + e.getMessage());
+            throw new IllegalArgumentException("Error creating token");
         }
     }
 
