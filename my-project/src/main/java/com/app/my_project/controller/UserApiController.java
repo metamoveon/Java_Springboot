@@ -82,7 +82,7 @@ public class UserApiController {
 
     private String getSecret() {
         Dotenv dotenv = Dotenv.configure()
-                .directory(System.getProperty("user.dir") + "/my-project")
+                .directory(System.getProperty("user.dir"))
                 .load();
         return dotenv.get("JWT_SECRET");
     }

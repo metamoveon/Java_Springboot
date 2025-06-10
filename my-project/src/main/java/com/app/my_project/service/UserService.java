@@ -8,7 +8,7 @@ import io.github.cdimascio.dotenv.Dotenv;
 public class UserService {
     private String getSecret() {
         Dotenv dotenv = Dotenv.configure()
-                .directory(System.getProperty("user.dir") + "/my-project")
+                .directory(System.getProperty("user.dir"))
                 .load();
         return dotenv.get("JWT_SECRET");
     }
