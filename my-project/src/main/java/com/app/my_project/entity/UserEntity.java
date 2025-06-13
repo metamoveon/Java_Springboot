@@ -14,6 +14,7 @@ public class UserEntity {
     private String username;
     private String email;
     private String password;
+    private String role;
 
     public Long getId() {
         return id;
@@ -47,4 +48,11 @@ public class UserEntity {
         this.password = password;
     }
 
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
 }
